@@ -1,6 +1,10 @@
 import logging
 import traceback
 import pandas
+import io
+import openpyxl
+import base64
+
 
 from flask import Blueprint, request, jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -55,18 +59,19 @@ def upload_quiz():
     :return: JSON object with response message
     """
     try:
-        print("request", request)
-        print("request.files", request.files)
-        if "file" in request.files:
-            # uploading quiz via file
-            file = request.files["file"]
-            if file.filename == "":
-                return jsonify({"error": "No selected file"}), 500
-            user_id = request.form.get("user_id")
-            quiz_id = request.form.get("quiz_id", None)
-            response = quiz_service_obj.upsert_quiz_file(file, user_id, quiz_id)
+        data = request.get_json()
+        if 'base64' in data:
+            # file upload approch
+            user_id = data.get("user_id", None)
+            quiz_id = data.get("quiz_id", None)
+            file_data = base64.b64decode(data['base64'])
+            file_data_name = f'user_bulk_upload.xlsx'
+            
+            with open(file_data_name, 'wb') as excel_file:
+                excel_file.write(file_data)
+
+            response = quiz_service_obj.upsert_quiz_file(file_data_name, user_id, quiz_id)
         else:
-            data = request.get_json()
             validate(data, UPLOAD_QUIZ_SCHEMA)
             response = quiz_service_obj.upload_quiz_json(data)
         return jsonify(response)

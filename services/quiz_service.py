@@ -7,9 +7,9 @@ from utils import obj_to_list, obj_to_dict
 import json
 import pandas as pd
 import traceback
+import openpyxl
 
 question_service_obj = QuestionService()
-
 
 class QuizService:
     def __init__(self):
@@ -144,7 +144,7 @@ class QuizService:
 
     def upsert_quiz_file(self, file, user_id, quiz_id):
         try:
-            meta_data = pd.read_excel(file, header=0, skiprows=0, nrows=4)
+            meta_data = pd.read_excel(file, engine='openpyxl', header=0, skiprows=0, nrows=4)
             meta_data_dic = dict(zip(meta_data["preference"], meta_data["value"]))
             meta_data_dic["quiz_name"] = meta_data_dic["Name"]
             existing_quiz = session.query(Quiz).filter_by(title = meta_data_dic["quiz_name"]).first()

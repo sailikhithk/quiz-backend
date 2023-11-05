@@ -1,10 +1,17 @@
 import traceback
+import os
 from flask_jwt_extended import create_access_token
 
 from models import User, Role, Quiz, Result
 from utils import encrypt, decrypt, obj_to_list, obj_to_dict
 from database import session
 from sqlalchemy import desc
+from email_utils import send_email
+from dotenv import load_dotenv
+load_dotenv()
+
+UI_SERVER_URL = os.environ.get("UI_SERVER_URL")
+EMAIL_USERNAME = os.environ.get("GOOGLE_EMAIL_USERNAME")
 
 class UserService:
     def __init__(self):
@@ -98,6 +105,13 @@ class UserService:
             
             user = self.create_user(username, password, email, institution, role_id)
             if user:
+                email_values = {
+                    "user_name": user.username,
+                    "institution_name": user.institution,
+                    "password": password,
+                    "login_url": UI_SERVER_URL    
+                }
+                send_email("register.html",email, "Registered", email_values)
                 return {"message": "User created plese re-login from login page", "status": True}
             else:
                 return {"message": "User not created", "status": False}
