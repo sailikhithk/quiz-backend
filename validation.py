@@ -141,10 +141,10 @@ CREATE_LESSON_SCHEMA = {
   "properties": {
     "title": {"type": "string"},
     "author_id": {"type": "integer"},
-    "file_path": {"type": "string"},
+    "data": {"type": "string"},
     "quiz_id": {"type": "integer"},
   },
-  "required": ["title", "author_id", "file_path", "quiz_id"]
+  "required": ["title", "author_id", "data", "quiz_id"]
 }
 
 UPDATE_LESSON_SCHEMA = {
@@ -152,7 +152,7 @@ UPDATE_LESSON_SCHEMA = {
   "properties": {
     "lesson_id": {"type": "integer"},
     "title": {"type": "string"},
-    "file_path": {"type": "string"},
+    "data": {"type": "string"},
     "quiz_id": {"type": "integer"},
   },
   "required": ["lesson_id"]

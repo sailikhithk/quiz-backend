@@ -76,13 +76,13 @@ class LessonService:
         try:
             lesson = self.get_lesson_by_id(lesson_id)
             lesson_dic = obj_to_dict(lesson)
-            full_file_path =  os.path.abspath(os.path.join(os.pardir, "server/data/lessons", "python_intro.html"))
-            if os.path.exists(full_file_path):
-                with open(full_file_path, "r") as file:
-                    content = file.read()
-                    lesson_dic["lesson"] = content
-            else:
-                lesson_dic["lesson"] = ""
+            # full_file_path =  os.path.abspath(os.path.join(os.pardir, "server/data/lessons", "python_intro.html"))
+            # if os.path.exists(full_file_path):
+            #     with open(full_file_path, "r") as file:
+            #         content = file.read()
+            #         lesson_dic["lesson"] = content
+            # else:
+            #     lesson_dic["lesson"] = ""
             return  {"data": lesson_dic, "status": True}
            
         except Exception as e:
