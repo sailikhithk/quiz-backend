@@ -53,7 +53,11 @@ def before_request():
     print("Query Params:", request.args)
     if request.method == "POST":
         if request.content_type.startswith("application/json"):
-            print("Body (JSON):", request.get_json())
+            request_body = request.get_json()
+            if 'base64' in request_body:
+                print("Request has base64 data so skipping print")
+            else:
+                print("Body (JSON):", request_body)
         elif request.content_type.startswith("multipart/form-data"):
             print("Form Data:")
             for key, value in request.form.items():
@@ -88,13 +92,13 @@ def after_request(response):
 def insert_dummy_data():
     with app.app_context():
         from create_db import (
-            create_dummy_roles,
+            create_roles,
             create_dummy_users,
             create_dummy_quizzes,
             create_dummy_lesson,
             create_dummy_results,
         )
-    create_dummy_roles()
+    create_roles()
     create_dummy_users()
     create_dummy_quizzes()
     create_dummy_lesson()
@@ -113,4 +117,4 @@ if __name__ == "__main__":
 
     Base.metadata.create_all(engine)
     # Starting Flask development server
-    app.run(host="0.0.0.0", debug=True, port=5001)
+    app.run(host="0.0.0.0", debug=True, port=5000)
