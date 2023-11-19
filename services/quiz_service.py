@@ -142,7 +142,7 @@ class QuizService:
     def split_options(self, row):
         return pd.Series(row["options"] + [None] * (4 - len(row["options"])))
 
-    def convert_to_bool(val):
+    def convert_to_bool(self, val):
         try:
             str_val = str(val).strip().lower()
             if str_val in ['1', 'true', True, 'True']:
@@ -170,10 +170,7 @@ class QuizService:
             meta_data_dic.pop("Pass Marks", None)
             meta_data_dic.pop("next lessons to unlock", "2")
             
-            questions_df = pd.read_excel(file, header=7)
-            print("*********************************************")
-            print("questions_df", questions_df)
-                      
+            questions_df = pd.read_excel(file, header=7)          
             column_mapping = {
                 "Questions": "questions",
                 "Correct Answers": "correct_option",
