@@ -183,7 +183,8 @@ class QuizService:
             print("----------------------------------------")
             print("----------------------------------------")
             print("questions_df", questions_df)
-            print(questions_df.columns)
+            print("columns", questions_df.columns)
+            print("columns", list(questions_df.columns))
             
             
             print("----------------------------------------")
