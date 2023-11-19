@@ -142,6 +142,18 @@ class QuizService:
     def split_options(self, row):
         return pd.Series(row["options"] + [None] * (4 - len(row["options"])))
 
+    def convert_to_bool(val):
+        try:
+            str_val = str(val).strip().lower()
+            if str_val in ['1', 'true', True, 'True']:
+                return True
+            elif str_val == ['0', 'false', False, 'False']:
+                return False
+            else:
+                return False
+        except:
+            return False
+   
     def upsert_quiz_file(self, file, user_id, quiz_id):
         try:
             meta_data = pd.read_excel(file, engine='openpyxl', header=0, skiprows=0, nrows=4)
