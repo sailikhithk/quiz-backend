@@ -179,9 +179,10 @@ class QuizService:
             }
 
             questions_df = questions_df.rename(columns=column_mapping)
-            questions_df["is_mandatory"] = questions_df["is_mandatory"].map(
-                lambda x: bool(x)
-            )
+            questions_df['is_mandatory'] = questions_df['is_mandatory'].apply(self.convert_to_bool)
+            # questions_df["is_mandatory"] = questions_df["is_mandatory"].map(
+            #     lambda x: bool(x)
+            # )
             questions_df["options"] = questions_df.apply(self.combine_options, axis=1)
             questions_df["correct_option"] = questions_df["correct_option"].astype(str)
             questions_df["correct_option"] = questions_df["correct_option"].apply(
