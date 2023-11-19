@@ -265,6 +265,7 @@ class QuizService:
             "Pass Marks": quiz.pass_marks,
             "next lessons to unlock": quiz.next_lessons_to_unlock,
         }
+        quiz_dic["next lessons to unlock"] = quiz_dic["next lessons to unlock"].replace('"', '')
         df1 = pd.DataFrame(list(quiz_dic.items()), columns=["preference", "value"])
         df2 = pd.DataFrame(questions)
         df2_normalized = pd.json_normalize(df2["content"])
@@ -286,7 +287,7 @@ class QuizService:
         }
         df2['is_mandatory'] = df2['is_mandatory'].replace({1: 'True', 0: 'False'})
         df2 = df2.rename(columns=column_mapping)
-
+        df2 = df2.drop(df2.index[5])
         desired_column_order = [
             "Questions",
             "Option 1",
