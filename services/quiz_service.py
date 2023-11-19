@@ -165,6 +165,7 @@ class QuizService:
             
             meta_data_dic["pass_marks"] = meta_data_dic["Pass Marks"]
             meta_data_dic["next_lessons_to_unlock"] = meta_data_dic["next lessons to unlock"]
+            meta_data_dic["next_lessons_to_unlock"] = meta_data_dic["next_lessons_to_unlock"].replace('"', "")
             meta_data_dic.pop("Name", None)
             meta_data_dic.pop("Pass Marks", None)
             meta_data_dic.pop("next lessons to unlock", "2")
