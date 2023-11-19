@@ -179,6 +179,13 @@ class QuizService:
             }
 
             questions_df = questions_df.rename(columns=column_mapping)
+            
+            print("----------------------------------------")
+            print("----------------------------------------")
+            print("questions_df", questions_df)
+            print("----------------------------------------")
+            print("----------------------------------------")
+
             questions_df['is_mandatory'] = questions_df['is_mandatory'].apply(self.convert_to_bool)
             # questions_df["is_mandatory"] = questions_df["is_mandatory"].map(
             #     lambda x: bool(x)
