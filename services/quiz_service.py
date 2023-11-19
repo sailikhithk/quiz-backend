@@ -34,9 +34,12 @@ class QuizService:
 
     def get_all_quizzes(self):
         quiz = session.query(Quiz).all()
+        quiz_list = obj_to_list(quiz)
+        for i in range(len(quiz_list)):
+            quiz_list[i]["next_lessons_to_unlock"] = str(quiz_list[i]["next_lessons_to_unlock"]).replace('"', "")        
         response = {
             "status": True,
-            "data": obj_to_list(quiz)
+            "data": quiz_list
         }
         return response
 

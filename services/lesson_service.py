@@ -112,8 +112,6 @@ class LessonService:
     def full_list(self):
         lessons = session.query(Lesson).all()
         lessons_list = obj_to_list(lessons)
-        for i in range(len(lessons_list)):
-            lessons_list[i]["next_lessons_to_unlock"] = str(lessons_list[i]["next_lessons_to_unlock"]).replace('"', '')
         return  {"data": lessons_list, "status": True}       
     
     def delete_lesson(self, lesson_id):
