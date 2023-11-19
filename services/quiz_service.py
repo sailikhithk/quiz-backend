@@ -259,6 +259,7 @@ class QuizService:
             "marks": "Marks",
             "is_mandatory": "Mandatory",
         }
+        df2['is_mandatory'] = df2['is_mandatory'].astype(bool)
         df2 = df2.rename(columns=column_mapping)
 
         desired_column_order = [
