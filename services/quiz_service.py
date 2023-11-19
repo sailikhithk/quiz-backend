@@ -156,7 +156,7 @@ class QuizService:
    
     def upsert_quiz_file(self, file, user_id, quiz_id):
         try:
-            meta_data = pd.read_excel(file, engine='openpyxl', header=0, skiprows=0, nrows=5)
+            meta_data = pd.read_excel(file, engine='openpyxl', header=0, skiprows=0, nrows=4)
             meta_data_dic = dict(zip(meta_data["preference"], meta_data["value"]))
             meta_data_dic["quiz_name"] = meta_data_dic["Name"]
             existing_quiz = session.query(Quiz).filter_by(title = meta_data_dic["quiz_name"]).first()
@@ -170,7 +170,7 @@ class QuizService:
             meta_data_dic.pop("Pass Marks", None)
             meta_data_dic.pop("next lessons to unlock", "2")
             
-            questions_df = pd.read_excel(file, header=6)
+            questions_df = pd.read_excel(file, header=7)
             column_mapping = {
                 "Questions": "questions",
                 "Correct Answers": "correct_option",
