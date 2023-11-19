@@ -287,7 +287,6 @@ class QuizService:
         }
         df2['is_mandatory'] = df2['is_mandatory'].replace({1: 'True', 0: 'False'})
         df2 = df2.rename(columns=column_mapping)
-        df2 = df2.drop(df2.index[5])
         desired_column_order = [
             "Questions",
             "Option 1",
@@ -300,6 +299,8 @@ class QuizService:
             "quiz_id",
         ]
         df2 = df2[desired_column_order]
+        df2 = df2.drop(df2.index[5])
+        
 
         with pd.ExcelWriter("output.xlsx") as writer:
             df1.to_excel(writer, sheet_name="Sheet1", index=False)
