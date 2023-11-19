@@ -171,6 +171,9 @@ class QuizService:
             meta_data_dic.pop("next lessons to unlock", "2")
             
             questions_df = pd.read_excel(file, header=7)
+            print("*********************************************")
+            print("questions_df", questions_df)
+                      
             column_mapping = {
                 "Questions": "questions",
                 "Correct Answers": "correct_option",
